@@ -3,6 +3,7 @@
 #include <QtNetwork>
 #include <QTcpServer> //监听套接字
 #include <QTcpSocket> //通信套接字//对方的(客户端的)套接字(通信套接字)
+#include <QUdpSocket> //通信套接字//对方的(客户端的)套接字(通信套接字)
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
@@ -21,17 +22,36 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QFileDialog>
+#include <QAudioFormat>
+#include <QAudioInput>
+#include <QIODevice>
+struct videoPack{
+    char    data[1024];
+    int     lens;
+};
+
 class ChatServer : public QObject
 {
     Q_OBJECT
 private :
     QTcpServer *server;
+    QUdpSocket *au;
+    QAudioInput *input;
+    QIODevice *inputDevice;
     std::vector<QTcpSocket *> client;
     FILE *fp;
     int fileSend;
     MainWindow *window;
     std::map<int, int> q;
 private slots:
+    void onReadyRead () {
+        qDebug() << "send audioinput....";
+        videoPack vp;
+        memset (&vp, 0, sizeof(vp));
+        //读取音频数据
+        vp.lens = inputDevice->read (vp.data, 1024);
+        au->writeDatagram((const char*)&vp, sizeof(vp), QHostAddress("127.0.0.1"), 234);
+    }
     void acceptConnection() {
         qDebug() << "re";
         client.push_back(server->nextPendingConnection());
@@ -134,6 +154,17 @@ public:
         server->listen(QHostAddress::Any, 233);
         window->setWindowTitle("Server: 233");
         connect(server,SIGNAL(newConnection()), this, SLOT(acceptConnection()));
+        QAudioFormat format;
+        format.setSampleRate (8000);        //设置采样频率
+        format.setChannelCount (1);         //设置通道计数
+        format.setSampleSize (16);          //设置样本大小，一般为8或者16
+        format.setCodec ("audio/pcm");      //设置编码格式
+        format.setSampleType (QAudioFormat::SignedInt);   //设置采样类型
+        format.setByteOrder (QAudioFormat::LittleEndian); //设置字节序为小端字节序
+        auto input = new QAudioInput(format, this);
+        au = new QUdpSocket(this);
+        inputDevice = input->start();
+        connect (inputDevice, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     };
     ~ChatServer() {
         server->close();
