@@ -20,6 +20,8 @@ private slots:
 
     void on_sendFile_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

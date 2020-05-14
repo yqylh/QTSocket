@@ -31,6 +31,8 @@ private slots:
 
     void on_sendFile_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ChatClient *chat;
@@ -51,6 +53,7 @@ private slots:
         videoPack vp;
         memset (&vp, 0, sizeof(vp));
         videoReadSocket->readDatagram ((char*)&vp, sizeof(vp));
+        if (recAU == 0) return;
         outputDevice->write (vp.data, vp.lens);
     }
 private :
@@ -60,9 +63,11 @@ private :
     QUdpSocket *videoReadSocket;
     QAudioOutput *output;
     QIODevice *outputDevice;
+    bool recAU;
 public:
     QTcpSocket *client;
     ChatClient(MainWindow *window) : window(window) {
+        recAU = 0;
         ReciveFile = 0;
         client = new QTcpSocket();
         client->connectToHost(QHostAddress("127.0.0.1"), 233);

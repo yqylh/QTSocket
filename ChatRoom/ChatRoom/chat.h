@@ -43,8 +43,10 @@ private :
     int fileSend;
     MainWindow *window;
     std::map<int, int> q;
+    bool sendAu;
 private slots:
     void onReadyRead () {
+//        if (sendAu == 0) return;
         qDebug() << "send audioinput....";
         videoPack vp;
         memset (&vp, 0, sizeof(vp));
@@ -150,6 +152,7 @@ private slots:
 public:
     friend class MainWindow;
     ChatServer(MainWindow *window) : window(window) {
+        sendAu = 1;
         fileSend = -1;
         q.clear();
         fp = nullptr;

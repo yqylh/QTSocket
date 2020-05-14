@@ -32,3 +32,18 @@ void MainWindow::on_sendFile_clicked()
    for (auto &i : server->client) i->write(("_%recived_%"+ name + "%_end").c_str(), ("_%recived_%"+ name + "%_end").length());
    for (int i = 0; i < server->client.size(); i++) server->q[i]=1;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    if (server->sendAu == 1) {
+        server->sendAu = 0;
+//        server->input->stop();
+//        server->inputDevice->close();
+//        server->inputDevice = server->input->stop();
+    } else {
+        server->sendAu = 1;
+//        server->input->start();
+//        server->inputDevice->open(OpenMode);
+//        server->inputDevice = server->input->start();
+    }
+}
