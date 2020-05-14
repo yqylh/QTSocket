@@ -105,7 +105,11 @@ private slots:
                     if (ans == QMessageBox::Yes) {
                         std::string name = stdStr.substr(stdStr.find("_%recived_%") + 11, stdStr.find("%_end")-11);
                         QString filePath = QFileDialog::getExistingDirectory(window, "Choose a folder to save", "./");
-                        fp = fopen((filePath.toStdString()+"/" + name).c_str(), "wb");
+                        window->ui->ChatInfo->setPlainText(window->ui->ChatInfo->toPlainText()+"\n\nreceived File "+QString::fromStdString(name)+"\n");
+                        QTextCodec *code = QTextCodec::codecForName("GB2312");
+                        std::string fname = code->fromUnicode(filePath).data();
+                        fp = fopen((fname +"/" + name).c_str(), "wb");
+//                        fp = fopen((filePath.toStdString()+"/" + name).c_str(), "wb");
                         cli->write("begin");
                         qDebug() << "first\n";
                         fileSend = i;

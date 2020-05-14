@@ -6,58 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>463</width>
-    <height>448</height>
+    <width>471</width>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPlainTextEdit" name="InputInfo">
+   <widget class="QPlainTextEdit" name="ChatInfo">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>380</y>
-      <width>221</width>
-      <height>71</height>
+      <x>10</x>
+      <y>10</y>
+      <width>451</width>
+      <height>361</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="sendToServer">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>230</x>
       <y>380</y>
-      <width>161</width>
-      <height>71</height>
+      <width>101</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>发送</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="ChatInfo">
+   <widget class="QPlainTextEdit" name="InputInfo">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>381</width>
-      <height>381</height>
+      <x>10</x>
+      <y>380</y>
+      <width>211</width>
+      <height>51</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="sendFile">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>0</y>
-      <width>91</width>
-      <height>71</height>
+      <x>400</x>
+      <y>380</y>
+      <width>61</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>发送文件</string>
+     <string>文件</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>380</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>语音</string>
     </property>
    </widget>
   </widget>

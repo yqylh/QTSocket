@@ -23,7 +23,9 @@ void MainWindow::on_sendToClient_clicked()
 void MainWindow::on_sendFile_clicked()
 {
    QString filePath = QFileDialog::getOpenFileName();
-   std::string file = filePath.toStdString();
+   QTextCodec *code = QTextCodec::codecForName("GB2312");
+   std::string file = code->fromUnicode(filePath).data();
+//   std::string file = filePath.toStdString();
    std::string s, push, name;
    name = file.substr(file.rfind("/")+1, file.size());
    server->fp = fopen(file.c_str(), "rb");

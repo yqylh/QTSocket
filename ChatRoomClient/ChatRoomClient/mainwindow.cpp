@@ -82,7 +82,9 @@ void ChatClient::receiveMessage() {
         if (ans == QMessageBox::Yes) {
             std::string name = stdStr.substr(stdStr.find("_%recived_%") + 11, stdStr.find("%_end")-11);
             QString filePath = QFileDialog::getExistingDirectory(window, "Choose a folder to save", "./");
-            fp = fopen((filePath.toStdString()+"/" + name).c_str(), "wb");
+            QTextCodec *code = QTextCodec::codecForName("GB2312");
+            std::string fname = code->fromUnicode(filePath).data();
+            fp = fopen((fname +"/" + name).c_str(), "wb");
             client->write("begin");
             qDebug() << "first\n";
             ReciveFile= 1;
@@ -100,7 +102,8 @@ void ChatClient::receiveMessage() {
 void MainWindow::on_sendFile_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName();
-    std::string file = filePath.toStdString();
+    QTextCodec *code = QTextCodec::codecForName("GBK");
+    std::string file = code->fromUnicode(filePath).data();
     std::string s, push, name;
     name = file.substr(file.rfind("/")+1, file.size());
    fp = fopen(file.c_str(), "rb");
