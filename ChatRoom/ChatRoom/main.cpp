@@ -37,13 +37,7 @@ void MainWindow::on_pushButton_clicked()
 {
     if (server->sendAu == 1) {
         server->sendAu = 0;
-//        server->input->stop();
-//        server->inputDevice->close();
-//        server->inputDevice = server->input->stop();
     } else {
         server->sendAu = 1;
-//        server->input->start();
-//        server->inputDevice->open(OpenMode);
-//        server->inputDevice = server->input->start();
     }
 }

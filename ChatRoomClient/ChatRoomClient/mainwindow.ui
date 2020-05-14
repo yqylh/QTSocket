@@ -29,7 +29,7 @@
      <rect>
       <x>230</x>
       <y>380</y>
-      <width>101</width>
+      <width>71</width>
       <height>51</height>
      </rect>
     </property>
@@ -50,9 +50,9 @@
    <widget class="QPushButton" name="sendFile">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>390</x>
       <y>380</y>
-      <width>61</width>
+      <width>71</width>
       <height>51</height>
      </rect>
     </property>
@@ -63,9 +63,9 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>310</x>
       <y>380</y>
-      <width>51</width>
+      <width>71</width>
       <height>51</height>
      </rect>
     </property>

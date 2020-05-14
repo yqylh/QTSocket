@@ -46,12 +46,14 @@ private :
     bool sendAu;
 private slots:
     void onReadyRead () {
-//        if (sendAu == 0) return;
         qDebug() << "send audioinput....";
         videoPack vp;
         memset (&vp, 0, sizeof(vp));
         //读取音频数据
         vp.lens = inputDevice->read (vp.data, 1024);
+        if (sendAu == 0) {
+            for (auto & x : vp.data) x = 0;
+        }
         au->writeDatagram((const char*)&vp, sizeof(vp), QHostAddress("127.0.0.1"), 234);
     }
     void acceptConnection() {
@@ -152,7 +154,7 @@ private slots:
 public:
     friend class MainWindow;
     ChatServer(MainWindow *window) : window(window) {
-        sendAu = 1;
+        sendAu = 0;
         fileSend = -1;
         q.clear();
         fp = nullptr;
